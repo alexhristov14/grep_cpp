@@ -78,6 +78,25 @@ in `CMakeLists.txt`.
 
 Use a Release build for meaningful numbers.
 
+## Search algorithms
+
+All three return the same lines. A line with several matches is returned once.
+
+| Function | How it searches | Time | 1M-line benchmark |
+|---|---|---|---|
+| `basicGrep` | Splits the buffer into lines, then runs `std::string_view::find` on each line | O(n · m) worst case | 19.2 ms (1.8 GiB/s) |
+| `onePassGrep` | Runs `std::string::find` over the whole buffer, then expands each match to its line | O(n · m) worst case | 17.7 ms (1.9 GiB/s) |
+| `boyerMooreGrep` | Boyer-Moore-Horspool with a `memchr` prefilter on the pattern's rarest byte (sampled from the first 4 KiB of the buffer) | Sublinear on average, O(n · m) worst case | 9.9 ms (3.5 GiB/s) |
+
+The numbers come from `./build/grep_bench` on a Release build. The pattern is
+`needle`, and one line in ten contains it. They will vary by machine.
+
+`std::string::find` uses `memchr` on the pattern's first byte. Its speed
+therefore depends on how common that byte is in the text. `boyerMooreGrep`
+searches for the rarest byte instead. It is fastest when the pattern starts
+with a common letter, and about equal to `onePassGrep` when the first byte is
+already rare.
+
 ## Project layout
 
 ```text

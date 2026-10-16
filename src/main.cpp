@@ -28,7 +28,7 @@ int main(int argc, char *argv[]) {
       buffer << file.rdbuf();
       std::string content = buffer.str();
 
-      auto results = basicGrep(content, pattern);
+      auto results = boyerMooreGrep(content, pattern);
 
       for (const auto &result : results) {
         if (useColor)
