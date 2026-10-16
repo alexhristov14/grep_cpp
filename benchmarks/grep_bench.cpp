@@ -1,4 +1,4 @@
-#include "grep_c++/algorithms.hpp"
+#include "grep_cpp/algorithms.hpp"
 
 #include <benchmark/benchmark.h>
 

@@ -31,10 +31,10 @@ target_compile_options(grep_warnings INTERFACE
 )
 target_link_libraries(grep_core PRIVATE grep_warnings)
 
-add_executable(grep_c++ src/main.cpp)
-target_link_libraries(grep_c++ PRIVATE grep_core grep_warnings)
+add_executable(grep_cpp src/main.cpp)
+target_link_libraries(grep_cpp PRIVATE grep_core grep_warnings)
 
-install(TARGETS grep_c++ RUNTIME DESTINATION bin)
+install(TARGETS grep_cpp RUNTIME DESTINATION bin)
 
 include(FetchContent)
 

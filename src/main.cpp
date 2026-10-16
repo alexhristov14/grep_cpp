@@ -7,8 +7,8 @@
 
 #include <unistd.h>
 
-#include "grep_c++/algorithms.hpp"
-#include "grep_c++/highlight.hpp"
+#include "grep_cpp/algorithms.hpp"
+#include "grep_cpp/highlight.hpp"
 
 int main(int argc, char *argv[]) {
   if (argc < 3) {

@@ -1,4 +1,4 @@
-#include "grep_c++/algorithms.hpp"
+#include "grep_cpp/algorithms.hpp"
 
 std::vector<std::string_view> basicGrep(const std::string &buffer,
                                         const std::string &pattern) {
@@ -15,6 +15,19 @@ std::vector<std::string_view> basicGrep(const std::string &buffer,
       results.push_back(line);
 
     start = end + 1;
+  }
+
+  return results;
+}
+
+std::vector<std::string_view> onePassGrep(const std::string &buffer,
+                                          const std::string &pattern) {
+  std::vector<std::string_view> results;
+  size_t start = 0;
+
+  while (start < buffer.size() &&
+         buffer.find(pattern, start) != std::string::npos) {
+    // todo
   }
 
   return results;

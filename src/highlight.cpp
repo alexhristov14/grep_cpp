@@ -1,4 +1,4 @@
-#include "grep_c++/highlight.hpp"
+#include "grep_cpp/highlight.hpp"
 
 #include <iostream>
 

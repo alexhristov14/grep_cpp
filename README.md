@@ -1,4 +1,4 @@
-# grep_c++
+# grep_cpp
 
 Implementation of the `grep` command in C++.
 
@@ -34,13 +34,13 @@ To skip the tests or benchmarks, configure with `-DGREP_BUILD_TESTS=OFF` or
 ## Usage
 
 ```bash
-./build/grep_c++ PATTERN FILE...
+./build/grep_cpp PATTERN FILE...
 ```
 
 Example:
 
 ```console
-$ ./build/grep_c++ hello test.txt
+$ ./build/grep_cpp hello test.txt
 hello world
 hello
 say hello to everyone
@@ -81,7 +81,7 @@ Use a Release build for meaningful numbers.
 ## Project layout
 
 ```text
-include/grep_c++/   public headers
+include/grep_cpp/   public headers
 src/                implementation and main.cpp
 tests/              GoogleTest unit tests
 benchmarks/         Google Benchmark benchmarks
