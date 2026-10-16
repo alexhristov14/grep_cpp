@@ -27,4 +27,18 @@ static void BM_BasicGrep(benchmark::State &state) {
   state.SetBytesProcessed(state.iterations() *
                           static_cast<int64_t>(buffer.size()));
 }
+
+static void BM_OnePassGrep(benchmark::State &state) {
+  const std::string buffer = makeBuffer(state.range(0));
+  const std::string pattern = "needle";
+
+  for (auto _ : state) {
+    auto results = onePassGrep(buffer, pattern);
+    benchmark::DoNotOptimize(results);
+  }
+  state.SetBytesProcessed(state.iterations() *
+                          static_cast<int64_t>(buffer.size()));
+}
+
 BENCHMARK(BM_BasicGrep)->RangeMultiplier(10)->Range(100, 1'000'000);
+BENCHMARK(BM_OnePassGrep)->RangeMultiplier(10)->Range(100, 1'000'000);
