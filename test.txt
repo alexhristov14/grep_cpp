@@ -1,0 +1,48 @@
+hello world
+Hello World
+HELLO WORLD
+hello
+say hello to everyone
+othello is a play
+helloworld
+the word hello appears twice: hello
+
+    indented hello with spaces
+nothing to see here
+grep is a command line utility
+GREP is a command line utility
+egrep and fgrep are variants
+
+The quick brown fox jumps over the lazy dog
+the quick brown fox
+fox
+foxes and foxglove
+a.b
+axb
+a*b
+aab
+[brackets]
+(parentheses)
+{braces}
+price is $5.00
+caret ^ symbol
+back\slash
+pipe | symbol
+plus+sign
+question?mark
+line ending with period.
+email: john.doe@example.com
+email: jane_smith99@test.org
+phone: 514-555-0123
+phone: (514) 555-0199
+date: 2026-10-16
+version 1.2.3
+ip 192.168.1.1
+12345
+abc123def
+café
+naïve résumé
+日本語のテキスト
+emoji 🙂 line
+    
+last line without trailing newline
