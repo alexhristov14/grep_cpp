@@ -96,3 +96,64 @@ TEST(OnePassGrep, MatchesBasicGrep) {
     }
   }
 }
+
+TEST(BoyerMooreGrep, ReturnsMatchingLines) {
+  const std::string buffer = "hello world\nfoo\nsay hello\n";
+  auto results = boyerMooreGrep(buffer, "hello");
+  ASSERT_EQ(results.size(), 2u);
+  EXPECT_EQ(results[0], "hello world");
+  EXPECT_EQ(results[1], "say hello");
+}
+
+TEST(BoyerMooreGrep, MultipleMatchesOnOneLineReturnLineOnce) {
+  const std::string buffer = "foo foo\nbar\nfoo\n";
+  auto results = boyerMooreGrep(buffer, "foo");
+  ASSERT_EQ(results.size(), 2u);
+  EXPECT_EQ(results[0], "foo foo");
+  EXPECT_EQ(results[1], "foo");
+}
+
+TEST(BoyerMooreGrep, PatternLongerThanBuffer) {
+  const std::string buffer = "ab";
+  EXPECT_TRUE(boyerMooreGrep(buffer, "abc").empty());
+}
+
+TEST(BoyerMooreGrep, NonAsciiBytes) {
+  const std::string buffer = "caf\xc3\xa9\nplain\n";
+  auto results = boyerMooreGrep(buffer, "\xc3\xa9");
+  ASSERT_EQ(results.size(), 1u);
+  EXPECT_EQ(results[0], "caf\xc3\xa9");
+}
+
+TEST(BoyerMooreGrep, MatchesBasicGrep) {
+  const std::string buffers[] = {
+      "hello world\nfoo\nsay hello\n",
+      "foo foo\nbar\nfoo",
+      "\n\nfoo\n\n",
+      "no match here\n",
+      "aaaaab\naab\nab\n",
+      "",
+  };
+  const std::string patterns[] = {"hello", "foo", "o", "x", "aab", "ab", ""};
+
+  for (const auto &buffer : buffers) {
+    for (const auto &pattern : patterns) {
+      EXPECT_EQ(boyerMooreGrep(buffer, pattern), basicGrep(buffer, pattern))
+          << "buffer: \"" << buffer << "\" pattern: \"" << pattern << "\"";
+    }
+  }
+}
+
+TEST(BoyerMooreGrep, MatchAtEndOfBufferWhenRareByteIsFirst) {
+  // 'q' never appears in the sample, so it becomes the memchr anchor
+  const std::string buffer = std::string(5000, 'e') + "\nqee";
+  auto results = boyerMooreGrep(buffer, "qee");
+  ASSERT_EQ(results.size(), 1u);
+  EXPECT_EQ(results[0], "qee");
+}
+
+TEST(BoyerMooreGrep, RareByteNearEndDoesNotReadPastBuffer) {
+  // the anchor byte occurs where the full pattern would overrun the buffer
+  const std::string buffer = "xxxxq";
+  EXPECT_TRUE(boyerMooreGrep(buffer, "qxx").empty());
+}
