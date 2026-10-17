@@ -16,7 +16,7 @@ option(GREP_BUILD_TESTS "Build unit tests" ON)
 option(GREP_BUILD_BENCHMARKS "Build benchmarks" ON)
 
 # Core logic shared by the executable, tests and benchmarks
-add_library(grep_core STATIC src/algorithms.cpp src/highlight.cpp)
+add_library(grep_core STATIC src/algorithms.cpp src/highlight.cpp src/file_op.cpp)
 
 target_include_directories(grep_core
     PUBLIC ${PROJECT_SOURCE_DIR}/include
@@ -50,7 +50,7 @@ if(GREP_BUILD_TESTS)
     enable_testing()
     include(GoogleTest)
 
-    add_executable(grep_tests tests/algorithms_test.cpp tests/highlight_test.cpp)
+    add_executable(grep_tests tests/algorithms_test.cpp tests/highlight_test.cpp tests/file_op_test.cpp)
     target_link_libraries(grep_tests PRIVATE grep_core grep_warnings GTest::gtest_main)
     gtest_discover_tests(grep_tests)
 endif()

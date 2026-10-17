@@ -52,6 +52,13 @@ the word hello appears twice: hello
 
 The search is case-sensitive and matches plain text, not regular expressions.
 
+`test.txt` is not checked in. Generate it first with
+`python3 scripts/gen_test_txt.py`. It is about 10 MB: about 50 hand-written
+edge-case lines followed by generated prose. None of the generated text
+contains `hello`, so the example output above stays the same. To write a
+different file or size, pass a path and size in MB, e.g.
+`python3 scripts/gen_test_txt.py big.txt 100`.
+
 ## Running the tests
 
 ```bash
@@ -104,4 +111,5 @@ include/grep_cpp/   public headers
 src/                implementation and main.cpp
 tests/              GoogleTest unit tests
 benchmarks/         Google Benchmark benchmarks
+scripts/            gen_test_txt.py, which regenerates test.txt
 ```
